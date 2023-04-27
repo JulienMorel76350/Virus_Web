@@ -1,15 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
+import PaymentRow from "../components/PaymentRow";
 function App() {
-  const [data, setData] = useState([]);
+  const [downloadCount, setDownloadCount] = useState(0);
+  const [payments, setPayments] = useState([]);
 
   useEffect(() => {
     axios
+      .get("/api/downloads/count")
+      .then((response) => {
+        setDownloadCount(response.data.count);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    axios
       .get("/api/payments")
       .then((response) => {
-        setData(response.data);
-        console.log(response)
+        setPayments(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -19,24 +28,29 @@ function App() {
   return (
     <div className="wrap-admin">
       <h1>Données de la base de données</h1>
-      <table>
-        <thead className="col-head">
-          <tr>
-            <th>Montant</th>
-            <th>Date</th>
-            <th>ID Stripe</th>
-          </tr>
-        </thead>
-        <tbody className="col-body">
-          {data.map((payment) => (
-            <tr key={payment.id}>
-              <td>{payment.amount / 100}</td>
-              <td>{payment.createdAt}</td>
-              <td>{payment.chargeId}</td>
+      <div className="download-count">
+        Nombre de téléchargements : {downloadCount}
+      </div>
+      <div className="tbl-header">
+        <table>
+          <thead className="col-head">
+            <tr>
+              <th>Montant</th>
+              <th>Date</th>
+              <th>ID Stripe</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+        </table>
+      </div>
+      <div className="tbl-content">
+        <table>
+          <tbody className="">
+            {payments.map((payment) => (
+              <PaymentRow key={payment.id} payment={payment} />
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
