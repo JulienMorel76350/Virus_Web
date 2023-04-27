@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.wrap-admin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: fit-content;
+  background-color: grey;
+}
+.col-head {
+  background-color: black;
+}
+.col-head > tr > th {
+  color: white;
+  padding: 10px;
+}
+.col-body > tr > th {
+  padding: 20px;
+  
+}
+.col-body {
+  background-color: white;
+}
+.col-body:hover {
+
+} 

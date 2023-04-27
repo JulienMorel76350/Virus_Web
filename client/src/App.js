@@ -7,7 +7,7 @@ import Navbar from "./components/nav";
 export default function App() {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/admin" element={<AdminPage />}></Route>

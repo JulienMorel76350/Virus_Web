@@ -6,10 +6,10 @@ function App() {
 
   useEffect(() => {
     axios
-      .get("/api/data")
+      .get("/api/payments")
       .then((response) => {
         setData(response.data);
-        console.log(data)
+        console.log(response)
       })
       .catch((error) => {
         console.log(error);
@@ -17,22 +17,22 @@ function App() {
   }, []);
 
   return (
-    <div>
+    <div className="wrap-admin">
       <h1>Données de la base de données</h1>
       <table>
-        <thead>
+        <thead className="col-head">
           <tr>
             <th>Montant</th>
             <th>Date</th>
             <th>ID Stripe</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="col-body">
           {data.map((payment) => (
-            <tr key={payment.stripeId}>
-              <td>{payment.amount}</td>
-              <td>{payment.date.toLocaleString()}</td>
-              <td>{payment.stripeId}</td>
+            <tr key={payment.id}>
+              <td>{payment.amount / 100}</td>
+              <td>{payment.createdAt}</td>
+              <td>{payment.chargeId}</td>
             </tr>
           ))}
         </tbody>
