@@ -2,7 +2,6 @@ import Download from "../models/download.js";
 
 export const createDownload = async (req, res) => {
   try {
-    console.log('try')
     // Trouve le document de téléchargement dans la base de données
     const download = await Download.findOne();
     if (!download) {
